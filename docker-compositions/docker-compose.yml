@@ -27,6 +27,8 @@ services:
       --backend-store-uri sqlite:////mlflow/mlflow.db
       --default-artifact-root /mlflow/artifacts
       --allowed-hosts "*"
+    volumes:
+      - /mlflow:/mlflow
     restart: unless-stopped
     networks:
       - mlflow-net
@@ -35,6 +37,8 @@ services:
     <<: *cuda_pytorch_base
     container_name: cuda_pytorch_radon
     image: ghcr.io/sacha-phd-labs/cuda_pytorch_radon:latest
+    volumes:
+      - /mlflow:/mlflow
     # pull_policy: always
 
 networks:
