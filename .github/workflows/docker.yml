@@ -44,8 +44,8 @@ jobs:
             - name: Build and push
               uses: docker/build-push-action@v6
               with:
-                context: docker/dockerfiles/cuda_pytorch
-                file: Dockerfile
+                context: dockerfiles/cuda_pytorch
+                file: dockerfiles/cuda_pytorch/Dockerfile
                 push: true
                 tags: ${{ steps.meta.outputs.tags }}
                 labels: ${{ steps.meta.outputs.labels }}
