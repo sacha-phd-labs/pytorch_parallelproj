@@ -38,6 +38,7 @@ services:
     <<: *cuda_pytorch_base
     container_name: cuda_pytorch_radon
     image: ghcr.io/sacha-phd-labs/cuda_pytorch_radon:latest
+    pull_policy: always
 
 networks:
   mlflow-net:

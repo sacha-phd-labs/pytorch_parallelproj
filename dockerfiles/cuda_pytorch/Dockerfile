@@ -72,7 +72,6 @@ ENV SHELL=/bin/bash
 USER $USERNAME
 
 COPY src/entrypoint.sh /tmp/entrypoint.sh
-COPY src/editable_requirements.txt /tmp/editable_requirements.txt
 RUN sudo chmod +x /tmp/entrypoint.sh
 
 ENTRYPOINT ["/tmp/entrypoint.sh"]
