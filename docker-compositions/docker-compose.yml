@@ -12,8 +12,6 @@ x-cuda_pytorch_base: &cuda_pytorch_base
   networks:
     - mlflow-net
   restart: unless-stopped
-  # run as the non-root user created in the Dockerfile (UID 1001)
-  user: "1001:1001"
   tty: true
 
 services:
@@ -26,11 +24,9 @@ services:
       mlflow server
       --host 0.0.0.0
       --port 5000
-      --backend-store-uri sqlite:////workspace/mlflow/mlflow.db
-      --default-artifact-root /workspace/mlflow/artifacts
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --default-artifact-root /mlflow/artifacts
       --allowed-hosts "*"
-    volumes:
-      - /mlflow_data:/workspace/mlflow   # <-- mount host folder
     restart: unless-stopped
     networks:
       - mlflow-net
@@ -38,9 +34,7 @@ services:
   cuda_pytorch_radon:
     <<: *cuda_pytorch_base
     container_name: cuda_pytorch_radon
-    image: ghcr.io/sacha-phd-labs/cuda_pytorch_radon:latest
-    volumes:
-      - /mlflow_data:/workspace/mlflow   # <-- same folder for artifacts
+    image: ghcr.io/sacha-phd-labs/cuda_pytorch_radon:sha-6b7bf0f
     # pull_policy: always
 
 networks:

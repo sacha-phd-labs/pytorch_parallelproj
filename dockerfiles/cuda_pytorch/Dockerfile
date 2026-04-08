@@ -36,18 +36,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     locales \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a non-root devuser user (UID 1001)
-ARG USERNAME=devuser
-ARG USER_UID=1001
-ARG USER_GID=$USER_UID
-RUN groupadd --gid $USER_GID $USERNAME \
-    && id -u $USERNAME || useradd --uid $USER_UID --gid $USER_GID -m $USERNAME -s /bin/bash \
-    && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
-
 # Set up workspace
 ENV WORKSPACE=/workspace
-RUN mkdir -p $WORKSPACE && chown $USERNAME:$USERNAME $WORKSPACE
+RUN mkdir -p $WORKSPACE
 WORKDIR $WORKSPACE
 
 # Copy requirements (if present) early for caching
@@ -68,14 +59,11 @@ ENV PYTHONPATH="${WORKSPACE}:${PYTHONPATH}"
 # Keep shell sane
 ENV SHELL=/bin/bash
 
-# Default to non-root user
-USER $USERNAME
-
 COPY src/entrypoint.sh /tmp/entrypoint.sh
 RUN sudo chmod +x /tmp/entrypoint.sh
 
 # add test data
-COPY data /workspace
+COPY data /workspace/data
 
 ENTRYPOINT ["/tmp/entrypoint.sh"]
 CMD ["tail", "-f", "/dev/null"]
