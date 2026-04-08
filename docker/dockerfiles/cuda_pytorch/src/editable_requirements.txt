@@ -1,2 +1,4 @@
 -e pet-phantom
 -e pytorch-utilities
+-e toolbox
+-e pet-simulation

@@ -1,14 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
-# Activate the virtual environment
-python -m venv --system-site-packages /workspace/.venv
-source /workspace/.venv/bin/activate
-
-# Install editable requirements in venv (if present)
-python -m pip install --upgrade pip setuptools wheel
-if [ -f /tmp/editable_requirements.txt ]; then
-    pip install --no-cache-dir -r /tmp/editable_requirements.txt
-fi
-
+pip install -r /tmp/editable_requirements.txt --no-deps
 exec "$@"
