@@ -1,0 +1,7 @@
+numpy
+matplotlib
+scikit-image
+torchsummary
+albumentations
+pytest
+mlflow

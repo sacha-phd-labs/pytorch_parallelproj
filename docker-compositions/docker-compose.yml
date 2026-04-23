@@ -1,6 +1,6 @@
 version: '3.9'
 
-x-cuda_pytorch_base: &cuda_pytorch_base
+x-ml_base: &ml_base
   # GPU support (requires Docker Engine and NVIDIA Container Toolkit)
   gpus: all
   shm_size: 8g
@@ -33,13 +33,12 @@ services:
     networks:
       - mlflow-net
 
-  sacha-phd-cuda_pytorch_radon:
-    <<: *cuda_pytorch_base
-    container_name: sacha-phd-cuda_pytorch_radon
-    image: ghcr.io/sacha-phd-labs/cuda_pytorch_radon:latest
+  sacha-phd-pytorch_parallelproj:
+    <<: *ml_base
+    container_name: sacha-phd-pytorch_parallelproj
+    image: ghcr.io/sacha-phd-labs/pytorch_parallelproj:latest
     volumes:
       - /mlflow:/mlflow
-    # pull_policy: always
 
 networks:
   mlflow-net:
