@@ -38,6 +38,8 @@ services:
     <<: *ml_base
     container_name: sacha-phd-pytorch_parallelproj
     image: ghcr.io/sacha-phd-labs/pytorch_parallelproj:latest
+    ports:
+      - "2222:22"
     volumes:
       - /mlflow-sacha-phd-labs:/mlflow-sacha-phd-labs
 

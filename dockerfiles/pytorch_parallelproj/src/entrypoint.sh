@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Start SSH server
+/usr/sbin/sshd -D &
+
 # Clone repositories for editable installs
 REPOS_DIR="/workspace"
 OWNER="sacha-phd-labs"
