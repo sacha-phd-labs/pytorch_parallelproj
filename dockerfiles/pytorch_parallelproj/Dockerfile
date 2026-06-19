@@ -63,7 +63,9 @@ RUN echo 'PubkeyAuthentication yes' >> /etc/ssh/sshd_config
 # Create a default user (replace 'sacha' with your preferred username)
 RUN useradd -m -s /bin/bash sacha && \
     usermod -aG sudo sacha && \
-    echo "sacha:sacha" | chpasswd
+    echo "sacha:sacha" | chpasswd && \
+    echo 'source /opt/conda/etc/profile.d/conda.sh' >> /home/sacha/.bashrc && \
+    echo 'conda activate parallelproj_env' >> /home/sacha/.bashrc
 
 EXPOSE 22
 
